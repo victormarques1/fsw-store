@@ -1,10 +1,9 @@
 "use client";
 
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import DiscountBadge from "@/components/ui/discount-badge";
 import { ProductWithTotalPrice } from "@/helpers/product";
 import {
-  ArrowDown,
   ArrowLeftIcon,
   ArrowRightIcon,
   TruckIcon,
@@ -37,9 +36,9 @@ const ProductInfo = ({
       <div className="flex items-center gap-1">
         <h1 className="text-xl font-bold">R$ {totalPrice.toFixed(2)}</h1>
         {discountPercent > 0 && (
-          <Badge className="px-2 py-[2px]">
-            <ArrowDown size={14} /> {discountPercent}%
-          </Badge>
+          <DiscountBadge>
+            {discountPercent}
+          </DiscountBadge>
         )}
       </div>
 
