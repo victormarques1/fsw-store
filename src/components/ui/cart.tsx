@@ -5,9 +5,11 @@ import { CartContext } from "@/providers/cart";
 import CartItem from "./cart-item";
 import { computeProductTotalPrice } from "@/helpers/product";
 import { Separator } from "./separator";
+import { ScrollArea } from "./scroll-area";
+import { Button } from "./button";
 
 const Cart = () => {
-    const { products, subTotal, total, totalDiscount } = useContext(CartContext)
+  const { products, subTotal, total, totalDiscount } = useContext(CartContext);
 
   return (
     <div className="flex flex-col gap-5">
@@ -19,14 +21,23 @@ const Cart = () => {
         Carrinho
       </Badge>
 
-      <div className="flex flex-col gap-5">
-      {products.length > 0 ? (
-        products.map((product) => (
-        <CartItem key={product.id} product={computeProductTotalPrice(product as any) as any}/>
-      ))
-      ) : (
-        <p className="text-center font-semibold">Carrinho vazio. Vamos fazer compras?</p>
-      )}
+      <div className="flex h-full flex-col gap-5 overflow-hidden">
+        <ScrollArea className="h-full">
+          <div className="flex h-full gap-8 flex-col">
+          {products.length > 0 ? (
+            products.map((product) => (
+              <CartItem
+                key={product.id}
+                product={computeProductTotalPrice(product as any) as any}
+              />
+            ))
+          ) : (
+            <p className="text-center font-semibold">
+              Carrinho vazio. Vamos fazer compras?
+            </p>
+          )}
+          </div>
+        </ScrollArea>
       </div>
 
       <div className="flex flex-col gap-3">
@@ -37,7 +48,7 @@ const Cart = () => {
           <p>R$ {subTotal.toFixed(2)}</p>
         </div>
 
-        <Separator/>
+        <Separator />
 
         <div className="flex items-center justify-between text-xs">
           <p>Entrega</p>
@@ -58,6 +69,7 @@ const Cart = () => {
           <p>R$ {total.toFixed(2)}</p>
         </div>
 
+        <Button className="uppercase font-bold mt-7">Finalizar compra</Button>
       </div>
     </div>
   );
